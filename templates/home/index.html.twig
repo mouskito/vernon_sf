@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        Je suis le contenu depuis index.html.twig
+    </div>
+    {% set test =" Je suis TEST" %}
+    {{ test }}
+    <img src="{{ asset('homer-simpson.jpg')}}" alt="" width="300">
+
+    <img src="https://www.webstickersmuraux.com/fr/img/arc109-jpg/folder/products-listado-merchanthover/autocollants-homer-mange-des-murs.jpg" alt="" width="300">
+{% endblock %}
