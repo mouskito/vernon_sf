@@ -1,0 +1,33 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="alert alert-danger" role="alert">
+    {{ form_errors(form.titre) }}
+  </div>
+    {# {{ form_widget(form) }} #}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            {{ form_row(form.titre, {'attr': {'class':'form-control', 'placeholder': "Saisir titre"}}) }}
+
+        </div>
+
+        <div class="col-md-6">
+            {{ form_row(form.resume, {'attr': {'class':'form-control', 'placeholder': "Saisir résumé"}}) }}
+
+        </div>
+    </div>
+    {{ form_row(form.contenu, {'attr': {'class':'form-control', 'placeholder': "Saisir contenu"}}) }}
+        <div class="row">
+            <div class="col-md-6">
+    
+                {{ form_row(form.auteur, {'attr': {'class':'form-control', 'placeholder': "Saisir auteur"}}) }}
+            </div>
+            <div class="col-md-6">
+                
+                {{ form_row(form.image, {'attr': {'class':'form-control', 'placeholder': "Saisir image"}}) }}
+            </div>
+        <button class="btn btn-primary">{{ button_label|default('Je poste mon article') }}</button>
+    </div>
+        </div>
+{{ form_end(form) }}
