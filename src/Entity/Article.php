@@ -17,7 +17,7 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank(message:'OUPS')]
+    #[Assert\NotBlank(message:'Ce titre ne doit pas être vide')]
     #[Assert\Length(
         min: 2,
         max: 5,
@@ -36,10 +36,10 @@ class Article
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $auteur = null;
-
-    #[ORM\Column(length: 20)]
     private ?string $image = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -99,18 +99,6 @@ class Article
         return $this;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): static
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -119,6 +107,18 @@ class Article
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

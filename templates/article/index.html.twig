@@ -24,7 +24,7 @@
                 <td>{{ article.titre }}</td>
                 <td>{{ article.resume }}</td>
                 <td>{{ article.createdAt ? article.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-                <td>{{ article.auteur }}</td>
+                <td>{{ article.user }}</td>
                 <td>{{ article.image }}</td>
                 <td>
                     <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>

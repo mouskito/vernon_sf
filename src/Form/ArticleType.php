@@ -16,7 +16,7 @@ class ArticleType extends AbstractType
             ->add('resume')
             ->add('contenu')
             // ->add('createdAt')
-            ->add('auteur')
+            // ->add('user')
             ->add('image')
         ;
     }
