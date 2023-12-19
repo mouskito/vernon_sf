@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Auteur</th>
-                <td>{{ article.auteur }}</td>
+                <td>{{ article.user }}</td>
             </tr>
             <tr>
                 <th>Image</th>
@@ -37,6 +37,27 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="liste">
+        <h3>Liste des commentaires</h3>
+
+        {% for comment in comments %}
+            Posté par <i>{{comment.user}}</i> le {{comment.createdAt|date('d-m-Y')}} 
+            à {{ comment.createdAt|date('H:i:s') }}
+            <p>
+                {{comment.contenu}}
+            </p>
+        {% endfor %}
+    </div>
+    <hr>
+    {% if app.user %}
+        
+    <div class="form">
+        {{ include('commentaire/_form.html.twig') }}
+    </div>
+    {% else %}
+        Vous devez vous connecter pour ajouter un commentaire
+    {% endif %}
 
     <a href="{{ path('app_article_index') }}">back to list</a>
 

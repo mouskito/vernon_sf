@@ -50,6 +50,16 @@
               </nav>
            </header>
         {% endblock %}
+
+        {% block message %}
+          
+        {% for alert in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ alert }}
+          </div>
+        {% endfor %}
+
+        {% endblock %}
         
         {% block body %}
             <div>

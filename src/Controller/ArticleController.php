@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentaire;
 use App\Form\ArticleType;
+use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +39,10 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            //FLASH
+                $this->addFlash('success','Votre article a été bien ajouté'); 
+            //FIN FLASH 
+
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -45,11 +52,32 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET', 'POST'])]
+    public function show(Article $article,Request $request, EntityManagerInterface $entityManager, CommentaireRepository $commentaireRepository): Response
     {
+        /* DEBUT COMMENTAIRE */
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $this->getUser(): recup le user connecté
+            $commentaire->setUser($this->getUser());
+
+            //Recup de l'article 
+            $commentaire->setArticle($article);
+
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            //redirectau même endroit
+            return $this->redirectToRoute('app_article_show',array('id'=> $article->getId()));
+        }
+        /* FIN COMMENTAIRE */
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'form' => $form,
+            'comments' => $commentaireRepository->findBy(['article' => $article]) 
         ]);
     }
 
